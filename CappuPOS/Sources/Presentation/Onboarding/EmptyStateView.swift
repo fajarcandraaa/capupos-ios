@@ -1,11 +1,18 @@
 import SwiftUI
 import SwiftData
 
+#if os(iOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
+
 public struct EmptyStateView: View {
     @State private var showAddProduct = false
     @State private var productName = ""
     @State private var productPrice = ""
     @State private var productDescription = ""
+    @State private var productImage: Data? = nil
     @State private var selectedCategory: Category?
     @State private var newCategoryName = ""
     @State private var newCategoryDescription = ""
@@ -51,6 +58,7 @@ public struct EmptyStateView: View {
                 productName: $productName,
                 productPrice: $productPrice,
                 productDescription: $productDescription,
+                productImage: $productImage,
                 selectedCategory: $selectedCategory,
                 onSave: { product in
                     let repo = ProductRepository(context: modelContext)
@@ -66,6 +74,9 @@ public struct EmptyStateView: View {
                 onNewCategory: { name, description in
                     let repo = CategoryRepository(context: modelContext)
                     selectedCategory = repo.create(name: name, description: description)
+                },
+                onClose: {
+                    showAddProduct = false
                 }
             )
         }
@@ -76,23 +87,40 @@ struct AddProductForm: View {
     @Binding var productName: String
     @Binding var productPrice: String
     @Binding var productDescription: String
+    @Binding var productImage: Data?
     @Binding var selectedCategory: Category?
 
     let onSave: (Product) -> Void
     let onNewCategory: (String, String?) -> Void
+    let onClose: () -> Void
 
     @State private var newCategoryName = ""
     @State private var newCategoryDescription = ""
     @State private var showingNewCategoryForm = false
     @State private var showingAlert = false
     @State private var alertMessage = ""
+    @State private var showingImagePicker = false
 
     var body: some View {
         NavigationView {
             Form {
+                Section(header: Text("Foto Produk")) {
+                    Button("Pilih Foto") {
+                        #if os(iOS)
+                        showingImagePicker = true
+                        #endif
+                    }
+                    if let image = productImage {
+                        DeserializedImage(data: image)
+                    }
+                }
+
                 Section(header: Text("Informasi Produk")) {
                     TextField("Nama Produk", text: $productName)
                     TextField("Harga", text: $productPrice)
+                        #if os(iOS)
+                        .keyboardType(.numberPad)
+                        #endif
                     TextField("Deskripsi", text: $productDescription)
                 }
 
@@ -118,6 +146,7 @@ struct AddProductForm: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Batal") {
+                        onClose()
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
@@ -136,9 +165,11 @@ struct AddProductForm: View {
                             name: productName,
                             price: price,
                             categoryID: selectedCategory?.id,
+                            image: productImage,
                             productDescription: productDescription.isEmpty ? nil : productDescription
                         )
                         onSave(product)
+                        onClose()
                     }
                 }
             }
@@ -174,6 +205,73 @@ struct AddProductForm: View {
                     }
                 }
             }
+            #if os(iOS)
+            .sheet(isPresented: $showingImagePicker) {
+                PhotoPicker(imageData: $productImage)
+            }
+            #endif
         }
     }
 }
+
+struct DeserializedImage: View {
+    let data: Data
+
+    var body: some View {
+        Group {
+            #if os(iOS)
+            if let uiImage = UIImage(data: data) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxHeight: 200)
+            }
+            #elseif os(macOS)
+            if let nsImage = NSImage(data: data) {
+                Image(nsImage: nsImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxHeight: 200)
+            }
+            #endif
+        }
+    }
+}
+
+#if os(iOS)
+struct PhotoPicker: UIViewControllerRepresentable {
+    @Binding var imageData: Data?
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let parent: PhotoPicker
+
+        init(_ parent: PhotoPicker) {
+            self.parent = parent
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let uiImage = info[.originalImage] as? UIImage {
+                parent.imageData = uiImage.jpegData(compressionQuality: 0.8)
+            }
+            picker.dismiss(animated: true)
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            picker.dismiss(animated: true)
+        }
+    }
+}
+#endif
