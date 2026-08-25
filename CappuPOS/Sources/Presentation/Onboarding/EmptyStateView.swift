@@ -54,7 +54,7 @@ public struct EmptyStateView: View {
                 selectedCategory: $selectedCategory,
                 onSave: { product in
                     let repo = ProductRepository(context: modelContext)
-                    try? repo.add(
+                    _ = try? repo.add(
                         name: product.name,
                         price: product.price,
                         description: product.productDescription,
