@@ -34,6 +34,8 @@ public struct EmptyStateView: View {
             Image(systemName: "cart")
                 .font(.system(size: 64))
                 .foregroundColor(.accentColor)
+                .accessibilityLabel("Ikon keranjang belanja")
+                .accessibilityAddTraits(.isImage)
 
             Text("Belum ada produk")
                 .font(.title2)
