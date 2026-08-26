@@ -19,9 +19,10 @@ public struct EmptyStateView: View {
     @State private var showingNewCategoryForm = false
     @State private var showingAlert = false
     @State private var alertMessage = ""
+    @Environment(\.modelContext) private var modelContext
+    @State private var unavailable = false
 
     let onClose: () -> Void
-    @Environment(\.modelContext) private var modelContext
 
     public init(onClose: @escaping () -> Void = {}) {
         self.onClose = onClose
@@ -46,39 +47,63 @@ public struct EmptyStateView: View {
                 .padding(.horizontal)
 
             Button("Tambah Produk Pertama") {
-                showAddProduct = true
+                if #available(iOS 17.0, *) {
+                    showAddProduct = true
+                } else {
+                    unavailable = true
+                }
             }
             .buttonStyle(.borderedProminent)
 
             Spacer()
         }
         .padding()
+        .alert("Fitur tidak tersedia", isPresented: $unavailable) {
+            Button("OK", role: .cancel) { unavailable = false }
+        } message: {
+            Text("Penambahan produk membutuhkan iOS 17 atau lebih baru.")
+        }
         .sheet(isPresented: $showAddProduct) {
-            AddProductForm(
-                productName: $productName,
-                productPrice: $productPrice,
-                productDescription: $productDescription,
-                productImage: $productImage,
-                selectedCategory: $selectedCategory,
-                onSave: { product in
-                    let repo = ProductRepository(context: modelContext)
-                    _ = try? repo.add(
-                        name: product.name,
-                        price: product.price,
-                        description: product.productDescription,
-                        categoryID: product.categoryID,
-                        imageData: product.image
-                    )
-                    onClose()
-                },
-                onNewCategory: { name, description in
-                    let repo = CategoryRepository(context: modelContext)
-                    selectedCategory = repo.create(name: name, description: description)
-                },
-                onClose: {
-                    showAddProduct = false
-                }
-            )
+            if #available(iOS 17.0, *) {
+                AddProductForm(
+                    productName: $productName,
+                    productPrice: $productPrice,
+                    productDescription: $productDescription,
+                    productImage: $productImage,
+                    selectedCategory: $selectedCategory,
+                    onSave: { product in
+                        if #available(iOS 17.0, *) {
+                            let repo = ProductRepository(context: modelContext)
+                            _ = try? repo.add(
+                                name: product.name,
+                                price: product.price,
+                                description: product.productDescription,
+                                categoryID: product.categoryID,
+                                imageData: product.image
+                            )
+                            onClose()
+                        } else {
+                            alertMessage = "Fitur tidak didukung di versi iOS ini"
+                            showingAlert = true
+                        }
+                    },
+                    onNewCategory: { name, description in
+                        if #available(iOS 17.0, *) {
+                            let repo = CategoryRepository(context: modelContext)
+                            selectedCategory = repo.create(name: name, description: description)
+                        } else {
+                            alertMessage = "Fitur tidak didukung di versi iOS ini"
+                            showingAlert = true
+                        }
+                    },
+                    onClose: {
+                        showAddProduct = false
+                    }
+                )
+            } else {
+                Text("Fitur ini membutuhkan iOS 17 atau lebih baru.")
+                    .padding()
+            }
         }
     }
 }
