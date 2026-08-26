@@ -31,9 +31,9 @@ public struct EmptyStateView: View {
         VStack(spacing: 24) {
             Spacer()
 
-            Image(systemName: "barcode")
+            Image(systemName: "cart")
                 .font(.system(size: 64))
-                .foregroundColor(.secondary)
+                .foregroundColor(.accentColor)
 
             Text("Belum ada produk")
                 .font(.title2)
