@@ -1,8 +1,6 @@
 # Swift Package Manager
 .build/
-.swiftpm/xcode/xcuserdata/
-*.xccheckout
-*.xcscmblueprint
+.swiftpm/
 
 # Xcode build artifacts
 build/
@@ -11,6 +9,11 @@ DerivedData/
 # Xcode user state
 xcuserdata/
 *.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+
+# Claude Code
+.claude/
 
 # macOS
 .DS_Store
