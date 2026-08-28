@@ -1,0 +1,377 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		449ED529ADCA09F6495AA7C2 /* CapuPOSDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004A5193BA202A5A2FBFC990 /* CapuPOSDataModel.swift */; };
+		4A1E127D8673F35AE4DC40FE /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B6936C3F139DB38C5CEE7 /* EmptyStateView.swift */; };
+		9DF691CE98DE1D2718B76892 /* CekProdukKosongUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D75C8C8EF4DDFA2A13130D5 /* CekProdukKosongUseCase.swift */; };
+		C812E4F50C2EFA8A8EEBC6E3 /* ProductRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78042D0BD6EEE825BC4FEC6 /* ProductRepository.swift */; };
+		E01881EF2840B55D40F122CB /* AppEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF546537B50AA6E07AA4C8E /* AppEntry.swift */; };
+		E843E0BD929BCCB0F91AA2B0 /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929025B6706FA4470DBD7E8 /* CategoryRepository.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		004A5193BA202A5A2FBFC990 /* CapuPOSDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapuPOSDataModel.swift; sourceTree = "<group>"; };
+		0929025B6706FA4470DBD7E8 /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
+		0A53E09D2CE5DF47F12D4FDC /* CapuPOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CapuPOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		250B6936C3F139DB38C5CEE7 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		4FF546537B50AA6E07AA4C8E /* AppEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntry.swift; sourceTree = "<group>"; };
+		7D75C8C8EF4DDFA2A13130D5 /* CekProdukKosongUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CekProdukKosongUseCase.swift; sourceTree = "<group>"; };
+		F78042D0BD6EEE825BC4FEC6 /* ProductRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRepository.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1134F38D874F0F78BA32DC01 = {
+			isa = PBXGroup;
+			children = (
+				7581F8BD64E91E6F26D7B441 /* Sources */,
+				C7E54FAF8207DFD97533B7DC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		351FF1A83264D8AC957033B1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				004A5193BA202A5A2FBFC990 /* CapuPOSDataModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		641DAE820A6FE551530DE1B1 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				7D75C8C8EF4DDFA2A13130D5 /* CekProdukKosongUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		6AA4CF6FDF00DF387ADB31D1 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				7285DD2C59EAB4D8FC90FBFD /* Onboarding */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		7285DD2C59EAB4D8FC90FBFD /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				250B6936C3F139DB38C5CEE7 /* EmptyStateView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		7581F8BD64E91E6F26D7B441 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				B32B724D0238E6D7C2D9DBF6 /* App */,
+				F4B9EF0DA9125CB6617D86DE /* Data */,
+				E836B8FFEDC1C535F9941E19 /* Domain */,
+				6AA4CF6FDF00DF387ADB31D1 /* Presentation */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		B32B724D0238E6D7C2D9DBF6 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4FF546537B50AA6E07AA4C8E /* AppEntry.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C7E54FAF8207DFD97533B7DC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A53E09D2CE5DF47F12D4FDC /* CapuPOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D812E9E14F28B1549B567A0E /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				0929025B6706FA4470DBD7E8 /* CategoryRepository.swift */,
+				F78042D0BD6EEE825BC4FEC6 /* ProductRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		E836B8FFEDC1C535F9941E19 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				641DAE820A6FE551530DE1B1 /* UseCase */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		F4B9EF0DA9125CB6617D86DE /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				351FF1A83264D8AC957033B1 /* Models */,
+				D812E9E14F28B1549B567A0E /* Repository */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		88777BD5EED9940CDC21F2D1 /* CapuPOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D97508E489A28ED55574157B /* Build configuration list for PBXNativeTarget "CapuPOS" */;
+			buildPhases = (
+				0CF43EE80CAE6FD8E7FFCE11 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CapuPOS;
+			packageProductDependencies = (
+			);
+			productName = CapuPOS;
+			productReference = 0A53E09D2CE5DF47F12D4FDC /* CapuPOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4EAD66F514E611205D6495E9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					88777BD5EED9940CDC21F2D1 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 25546CCEB3DD220B58D6F6F0 /* Build configuration list for PBXProject "CapuPOS" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 1134F38D874F0F78BA32DC01;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = C7E54FAF8207DFD97533B7DC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				88777BD5EED9940CDC21F2D1 /* CapuPOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0CF43EE80CAE6FD8E7FFCE11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E01881EF2840B55D40F122CB /* AppEntry.swift in Sources */,
+				449ED529ADCA09F6495AA7C2 /* CapuPOSDataModel.swift in Sources */,
+				E843E0BD929BCCB0F91AA2B0 /* CategoryRepository.swift in Sources */,
+				9DF691CE98DE1D2718B76892 /* CekProdukKosongUseCase.swift in Sources */,
+				4A1E127D8673F35AE4DC40FE /* EmptyStateView.swift in Sources */,
+				C812E4F50C2EFA8A8EEBC6E3 /* ProductRepository.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0351EA89467D779E7A735C4A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		1648891028A69B589B419D28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		A229ABCE8E7A8CEBEA0DC74A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mind2screen.capupos;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E7BE2BE1053C7B000459AB8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mind2screen.capupos;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		25546CCEB3DD220B58D6F6F0 /* Build configuration list for PBXProject "CapuPOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0351EA89467D779E7A735C4A /* Debug */,
+				1648891028A69B589B419D28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D97508E489A28ED55574157B /* Build configuration list for PBXNativeTarget "CapuPOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A229ABCE8E7A8CEBEA0DC74A /* Debug */,
+				E7BE2BE1053C7B000459AB8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4EAD66F514E611205D6495E9 /* Project object */;
+}
