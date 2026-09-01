@@ -72,6 +72,11 @@ public struct UbahProdukView: View {
         .sheet(isPresented: $showingCategoryPicker) {
             CategoryPickerView(selected: $selectedCategory)
         }
+        .onAppear {
+            if selectedCategory == nil, let categoryID = product.categoryID {
+                selectedCategory = categories.first(where: { $0.id == categoryID })
+            }
+        }
     }
 
     private var header: some View {
