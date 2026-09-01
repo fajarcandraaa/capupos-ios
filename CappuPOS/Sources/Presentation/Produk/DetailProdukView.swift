@@ -11,6 +11,8 @@ public struct DetailProdukView: View {
     @State private var showingUbah = false
     @State private var showingArurStok = false
     @State private var showingHapusKonfirmasi = false
+    @State private var showingError = false
+    @State private var errorMessage = ""
 
     public init(product: Product) {
         self.product = product
@@ -41,6 +43,11 @@ public struct DetailProdukView: View {
             Button("Hapus", role: .destructive) { hapus() }
         } message: {
             Text("Produk \"\(product.name)\" akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.")
+        }
+        .alert("Gagal menghapus", isPresented: $showingError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(errorMessage)
         }
     }
 
@@ -95,7 +102,7 @@ public struct DetailProdukView: View {
         VStack(alignment: .leading, spacing: 16) {
             DetailRow(label: "Nama", value: product.name)
             DetailRow(label: "Kategori", value: categoryName)
-            DetailRow(label: "Harga", value: formatPrice(product.price))
+            DetailRow(label: "Harga", value: PriceFormatter.format(product.price))
             DetailRow(label: "Deskripsi", value: product.productDescription ?? "-")
             DetailRow(label: "Lacak Stok", value: product.stockTracked ? "Ya" : "Tidak")
             if product.stockTracked {
@@ -152,22 +159,16 @@ public struct DetailProdukView: View {
     }
 
     private func hapus() {
-        let repo = ProductRepository(context: modelContext)
+        let useCase = HapusProdukUseCase(productRepository: ProductRepository(context: modelContext))
         do {
-            try repo.delete(id: product.id)
+            try useCase.execute(id: product.id)
             dismiss()
         } catch {
-            // Deletion failure — surface via system log; UI dismiss is still safe.
+            errorMessage = "Gagal menghapus produk: \(error.localizedDescription)"
+            showingError = true
         }
     }
 
-    private func formatPrice(_ value: Double) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencySymbol = "Rp"
-        formatter.maximumFractionDigits = 0
-        return formatter.string(from: NSNumber(value: value)) ?? "Rp\(Int(value))"
-    }
 }
 
 private struct DetailRow: View {
