@@ -38,7 +38,10 @@ struct ContentView: View {
     private func checkIfFirstTime() async {
         let useCase = CekProdukKosongUseCase(context: modelContext)
         if useCase.isEmpty() {
-            await MainActor.run { showOnboarding = true }
+            await MainActor.run {
+                showOnboarding = true
+                showSplash = false
+            }
         } else {
             await MainActor.run { showSplash = false }
         }
