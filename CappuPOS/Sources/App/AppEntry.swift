@@ -58,8 +58,7 @@ struct SplashScreen: View {
 struct HomeView: View {
     var body: some View {
         NavigationView {
-            Text("Home Screen")
-                .navigationTitle("Home")
+            ListProdukView()
         }
     }
 }
