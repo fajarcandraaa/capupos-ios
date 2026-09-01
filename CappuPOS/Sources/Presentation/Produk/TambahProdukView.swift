@@ -128,13 +128,13 @@ public struct TambahProdukView: View {
             return
         }
 
-        let repo = ProductRepository(context: modelContext)
+        let useCase = TambahProdukUseCase(productRepository: ProductRepository(context: modelContext))
         do {
-            _ = try repo.add(
-                name: productName,
-                price: price,
-                description: productDescription.isEmpty ? nil : productDescription,
-                categoryID: selectedCategory?.id,
+            _ = try useCase.execute(
+                nama: productName,
+                harga: price,
+                kategoriID: selectedCategory?.id,
+                deskripsi: productDescription.isEmpty ? nil : productDescription,
                 imageData: productImage
             )
             dismiss()

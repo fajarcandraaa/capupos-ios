@@ -207,7 +207,7 @@ private struct ProductCard: View {
                         .font(.system(size: 11))
                         .foregroundColor(.cappuMuted)
                         .lineLimit(1)
-                    Text(formatPrice(product.price))
+                    Text(PriceFormatter.format(product.price))
                         .font(.system(size: 13, weight: .bold))
                         .foregroundColor(.cappuPrimary)
                 }
@@ -222,11 +222,4 @@ private struct ProductCard: View {
         .buttonStyle(.plain)
     }
 
-    private func formatPrice(_ value: Double) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencySymbol = "Rp"
-        formatter.maximumFractionDigits = 0
-        return formatter.string(from: NSNumber(value: value)) ?? "Rp\(Int(value))"
-    }
 }

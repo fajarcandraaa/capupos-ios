@@ -7,10 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2913494A3FF27C1A27C68D11 /* UbahProdukUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AB34866A459C436FE9BE66 /* UbahProdukUseCase.swift */; };
+		33E31DD7CC4B4FD1DBEA24BF /* UbahProdukView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6220339EB13D0A2D18F23 /* UbahProdukView.swift */; };
+		3F04216D7B40A2B3ABE4AA55 /* PriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EAC8A89E4965F642415F0E /* PriceFormatter.swift */; };
+		43C028C7F40694A2E83EAAB3 /* HapusProdukUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00BA6359883AE6028321C2 /* HapusProdukUseCase.swift */; };
+		4457D29F456EE9CEE519233C /* DetailProdukView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5986F3CC62A1F0B55D4605 /* DetailProdukView.swift */; };
 		449ED529ADCA09F6495AA7C2 /* CapuPOSDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004A5193BA202A5A2FBFC990 /* CapuPOSDataModel.swift */; };
 		4A1E127D8673F35AE4DC40FE /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B6936C3F139DB38C5CEE7 /* EmptyStateView.swift */; };
+		8A97701AE98BCD0835B7A398 /* CategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC141EC8F07B137C5BCF6197 /* CategoryPickerView.swift */; };
+		9465D1BF4CEC7DD31F636C67 /* ListProdukView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C237DD39862909D8658F6950 /* ListProdukView.swift */; };
 		9DF691CE98DE1D2718B76892 /* CekProdukKosongUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D75C8C8EF4DDFA2A13130D5 /* CekProdukKosongUseCase.swift */; };
+		AF47093E50E592B6B17C02E3 /* TambahProdukView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7D307F549A312A0580F1BD /* TambahProdukView.swift */; };
+		B8B5BDAB0763EA82E6B4B624 /* ArurKetersediaanStokView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC4A74EBD09D3BDDAA552D /* ArurKetersediaanStokView.swift */; };
 		C812E4F50C2EFA8A8EEBC6E3 /* ProductRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78042D0BD6EEE825BC4FEC6 /* ProductRepository.swift */; };
+		DA55720AD8D0B9785641C5D3 /* TambahProdukUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB781192B93978F92C3CD83B /* TambahProdukUseCase.swift */; };
 		E01881EF2840B55D40F122CB /* AppEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF546537B50AA6E07AA4C8E /* AppEntry.swift */; };
 		E843E0BD929BCCB0F91AA2B0 /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929025B6706FA4470DBD7E8 /* CategoryRepository.swift */; };
 /* End PBXBuildFile section */
@@ -19,10 +29,20 @@
 		004A5193BA202A5A2FBFC990 /* CapuPOSDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapuPOSDataModel.swift; sourceTree = "<group>"; };
 		0929025B6706FA4470DBD7E8 /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
 		0A53E09D2CE5DF47F12D4FDC /* CapuPOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CapuPOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		21F6220339EB13D0A2D18F23 /* UbahProdukView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbahProdukView.swift; sourceTree = "<group>"; };
 		250B6936C3F139DB38C5CEE7 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		31AB34866A459C436FE9BE66 /* UbahProdukUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbahProdukUseCase.swift; sourceTree = "<group>"; };
+		3E5986F3CC62A1F0B55D4605 /* DetailProdukView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProdukView.swift; sourceTree = "<group>"; };
 		4FF546537B50AA6E07AA4C8E /* AppEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntry.swift; sourceTree = "<group>"; };
+		5F7D307F549A312A0580F1BD /* TambahProdukView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TambahProdukView.swift; sourceTree = "<group>"; };
 		7D75C8C8EF4DDFA2A13130D5 /* CekProdukKosongUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CekProdukKosongUseCase.swift; sourceTree = "<group>"; };
+		87EAC8A89E4965F642415F0E /* PriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
+		BC141EC8F07B137C5BCF6197 /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
+		C237DD39862909D8658F6950 /* ListProdukView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProdukView.swift; sourceTree = "<group>"; };
+		CE00BA6359883AE6028321C2 /* HapusProdukUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapusProdukUseCase.swift; sourceTree = "<group>"; };
+		EB781192B93978F92C3CD83B /* TambahProdukUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TambahProdukUseCase.swift; sourceTree = "<group>"; };
 		F78042D0BD6EEE825BC4FEC6 /* ProductRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRepository.swift; sourceTree = "<group>"; };
+		FCBC4A74EBD09D3BDDAA552D /* ArurKetersediaanStokView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArurKetersediaanStokView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -46,6 +66,9 @@
 			isa = PBXGroup;
 			children = (
 				7D75C8C8EF4DDFA2A13130D5 /* CekProdukKosongUseCase.swift */,
+				CE00BA6359883AE6028321C2 /* HapusProdukUseCase.swift */,
+				EB781192B93978F92C3CD83B /* TambahProdukUseCase.swift */,
+				31AB34866A459C436FE9BE66 /* UbahProdukUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -54,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				7285DD2C59EAB4D8FC90FBFD /* Onboarding */,
+				F22C45B5A74FD2E1DDB6D7F9 /* Produk */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -110,6 +134,20 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		F22C45B5A74FD2E1DDB6D7F9 /* Produk */ = {
+			isa = PBXGroup;
+			children = (
+				FCBC4A74EBD09D3BDDAA552D /* ArurKetersediaanStokView.swift */,
+				BC141EC8F07B137C5BCF6197 /* CategoryPickerView.swift */,
+				3E5986F3CC62A1F0B55D4605 /* DetailProdukView.swift */,
+				C237DD39862909D8658F6950 /* ListProdukView.swift */,
+				87EAC8A89E4965F642415F0E /* PriceFormatter.swift */,
+				5F7D307F549A312A0580F1BD /* TambahProdukView.swift */,
+				21F6220339EB13D0A2D18F23 /* UbahProdukView.swift */,
+			);
+			path = Produk;
+			sourceTree = "<group>";
+		};
 		F4B9EF0DA9125CB6617D86DE /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,7 +187,7 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					88777BD5EED9940CDC21F2D1 = {
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -178,11 +216,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				E01881EF2840B55D40F122CB /* AppEntry.swift in Sources */,
+				B8B5BDAB0763EA82E6B4B624 /* ArurKetersediaanStokView.swift in Sources */,
 				449ED529ADCA09F6495AA7C2 /* CapuPOSDataModel.swift in Sources */,
+				8A97701AE98BCD0835B7A398 /* CategoryPickerView.swift in Sources */,
 				E843E0BD929BCCB0F91AA2B0 /* CategoryRepository.swift in Sources */,
 				9DF691CE98DE1D2718B76892 /* CekProdukKosongUseCase.swift in Sources */,
+				4457D29F456EE9CEE519233C /* DetailProdukView.swift in Sources */,
 				4A1E127D8673F35AE4DC40FE /* EmptyStateView.swift in Sources */,
+				43C028C7F40694A2E83EAAB3 /* HapusProdukUseCase.swift in Sources */,
+				9465D1BF4CEC7DD31F636C67 /* ListProdukView.swift in Sources */,
+				3F04216D7B40A2B3ABE4AA55 /* PriceFormatter.swift in Sources */,
 				C812E4F50C2EFA8A8EEBC6E3 /* ProductRepository.swift in Sources */,
+				DA55720AD8D0B9785641C5D3 /* TambahProdukUseCase.swift in Sources */,
+				AF47093E50E592B6B17C02E3 /* TambahProdukView.swift in Sources */,
+				2913494A3FF27C1A27C68D11 /* UbahProdukUseCase.swift in Sources */,
+				33E31DD7CC4B4FD1DBEA24BF /* UbahProdukView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,8 +360,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -333,8 +381,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

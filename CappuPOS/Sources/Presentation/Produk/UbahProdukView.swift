@@ -13,6 +13,7 @@ public struct UbahProdukView: View {
     @State private var productDescription: String
     @State private var productImage: Data?
     @State private var selectedCategory: Category?
+    @State private var clearImage = false
     @State private var showingImagePicker = false
     @State private var showingCategoryPicker = false
     @State private var showingAlert = false
@@ -98,34 +99,48 @@ public struct UbahProdukView: View {
     }
 
     private var photoField: some View {
-        Button {
-            #if os(iOS)
-            showingImagePicker = true
-            #endif
-        } label: {
-            Group {
-                if let image = productImage, let uiImage = UIImage(data: image) {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
+        VStack(spacing: 8) {
+            Button {
+                #if os(iOS)
+                showingImagePicker = true
+                #endif
+            } label: {
+                Group {
+                    if let image = productImage, let uiImage = UIImage(data: image) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 120, height: 120)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    } else {
+                        VStack(spacing: 12) {
+                            Image(systemName: "photo.badge.plus")
+                                .font(.system(size: 32))
+                                .foregroundColor(.cappuPrimary)
+                            Text("Tambah Foto")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.cappuPrimary)
+                        }
                         .frame(width: 120, height: 120)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                } else {
-                    VStack(spacing: 12) {
-                        Image(systemName: "photo.badge.plus")
-                            .font(.system(size: 32))
-                            .foregroundColor(.cappuPrimary)
-                        Text("Tambah Foto")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.cappuPrimary)
+                        .background(Color.white)
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.cappuBorder, lineWidth: 1))
                     }
-                    .frame(width: 120, height: 120)
-                    .background(Color.white)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.cappuBorder, lineWidth: 1))
                 }
             }
+            .buttonStyle(.plain)
+
+            if productImage != nil {
+                Button {
+                    productImage = nil
+                    clearImage = true
+                } label: {
+                    Text("Hapus foto")
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.red)
+                }
+                .buttonStyle(.plain)
+            }
         }
-        .buttonStyle(.plain)
         .frame(maxWidth: .infinity)
     }
 
@@ -141,15 +156,16 @@ public struct UbahProdukView: View {
             return
         }
 
-        let repo = ProductRepository(context: modelContext)
+        let useCase = UbahProdukUseCase(productRepository: ProductRepository(context: modelContext))
         do {
-            _ = try repo.update(
+            _ = try useCase.execute(
                 id: product.id,
-                name: productName,
-                price: price,
-                categoryID: selectedCategory?.id,
+                nama: productName,
+                harga: price,
+                kategoriID: selectedCategory?.id,
+                deskripsi: productDescription.isEmpty ? nil : productDescription,
                 imageData: productImage,
-                description: productDescription.isEmpty ? nil : productDescription
+                clearImage: clearImage
             )
             dismiss()
         } catch {

@@ -14,7 +14,8 @@ public final class UbahProdukUseCase {
         harga: Double,
         kategoriID: UUID? = nil,
         deskripsi: String? = nil,
-        imageData: Data? = nil
+        imageData: Data? = nil,
+        clearImage: Bool = false
     ) throws -> Product {
         try productRepository.update(
             id: id,
@@ -22,7 +23,8 @@ public final class UbahProdukUseCase {
             price: harga,
             categoryID: kategoriID,
             imageData: imageData,
-            description: deskripsi
+            description: deskripsi,
+            clearImage: clearImage
         )
     }
 }
