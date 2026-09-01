@@ -343,7 +343,7 @@ struct AddProductForm: View {
 
 // MARK: - Form field components (Figma: radius 2, padding 16/10)
 
-private struct CappuFieldLabel: View {
+struct CappuFieldLabel: View {
     let text: String
 
     var body: some View {
@@ -353,7 +353,7 @@ private struct CappuFieldLabel: View {
     }
 }
 
-private struct CappuFieldContainer<Content: View>: View {
+struct CappuFieldContainer<Content: View>: View {
     let content: Content
 
     init(@ViewBuilder content: () -> Content) {
@@ -370,7 +370,7 @@ private struct CappuFieldContainer<Content: View>: View {
     }
 }
 
-private struct CappuTextField: View {
+struct CappuTextField: View {
     let label: String
     let placeholder: String
     @Binding var text: String
@@ -393,7 +393,7 @@ private struct CappuTextField: View {
     }
 }
 
-private struct CappuTextArea: View {
+struct CappuTextArea: View {
     let label: String
     let placeholder: String
     @Binding var text: String
@@ -422,7 +422,7 @@ private struct CappuTextArea: View {
     }
 }
 
-private struct CappuCategoryField: View {
+struct CappuCategoryField: View {
     let label: String
     let selected: Category?
     let onTap: () -> Void
