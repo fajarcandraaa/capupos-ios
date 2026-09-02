@@ -120,7 +120,12 @@ public struct EmptyStateView: View {
                     onNewCategory: { name, description in
                         if #available(iOS 17.0, *) {
                             let repo = CategoryRepository(context: modelContext)
-                            selectedCategory = repo.create(name: name, description: description)
+                            if let cat = repo.create(name: name, description: description) {
+                                selectedCategory = cat
+                            } else {
+                                alertMessage = "Kategori dengan nama ini sudah ada atau nama kosong"
+                                showingAlert = true
+                            }
                         } else {
                             alertMessage = "Fitur tidak didukung di versi iOS ini"
                             showingAlert = true

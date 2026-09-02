@@ -11,6 +11,8 @@ struct CategoryPickerView: View {
     @State private var showingNewCategory = false
     @State private var newName = ""
     @State private var newDescription = ""
+    @State private var showingAlert = false
+    @State private var alertMessage = ""
 
     var body: some View {
         NavigationView {
@@ -58,11 +60,14 @@ struct CategoryPickerView: View {
                         Spacer()
                         Button("Simpan") {
                             let repo = CategoryRepository(context: modelContext)
-                            let trimmed = newName.trimmingCharacters(in: .whitespacesAndNewlines)
-                            if !trimmed.isEmpty {
-                                let cat = repo.create(name: trimmed, description: newDescription.isEmpty ? nil : newDescription)
+                            if let cat = repo.create(name: newName, description: newDescription.isEmpty ? nil : newDescription) {
                                 selected = cat
+                                newName = ""
+                                newDescription = ""
                                 showingNewCategory = false
+                            } else {
+                                alertMessage = "Kategori dengan nama ini sudah ada atau nama kosong"
+                                showingAlert = true
                             }
                         }
                         .buttonStyle(.plain)
@@ -82,6 +87,11 @@ struct CategoryPickerView: View {
                 }
                 .background(Color.white)
             }
+        }
+        .alert("Error", isPresented: $showingAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(alertMessage)
         }
     }
 }
