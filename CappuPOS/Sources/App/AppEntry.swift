@@ -50,10 +50,35 @@ struct ContentView: View {
 
 struct SplashScreen: View {
     var body: some View {
-        VStack {
-            Text("CappuPOS")
-                .font(.largeTitle)
-                .fontWeight(.bold)
+        ZStack {
+            Color(red: 0.086, green: 0.478, blue: 0.835)
+                .ignoresSafeArea()
+
+            VStack(spacing: 24) {
+                Spacer()
+
+                VStack(spacing: 16) {
+                    Image("CappuPOSLogo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+
+                    Text("Cappu POS")
+                        .font(.system(size: 28, weight: .bold))
+                        .foregroundColor(.white)
+                }
+
+                Spacer()
+
+                VStack(spacing: 8) {
+                    Text("Versi aplikasi 1.0")
+                        .font(.system(size: 14))
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.bottom, 40)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
