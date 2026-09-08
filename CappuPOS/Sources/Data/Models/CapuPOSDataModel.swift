@@ -46,10 +46,12 @@ public final class Category {
     public var id: UUID
     public var name: String
     public var details: String?
+    public var order: Int = 0
 
-    public init(id: UUID = UUID(), name: String, description: String? = nil) {
+    public init(id: UUID = UUID(), name: String, description: String? = nil, order: Int = 0) {
         self.id = id
         self.name = name
         self.details = description
+        self.order = order
     }
 }

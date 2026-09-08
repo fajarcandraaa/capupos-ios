@@ -11,8 +11,13 @@ public struct ListProdukView: View {
     @State private var searchText = ""
     @State private var showingTambahProduk = false
     @State private var showingDetailProduct: Product?
+    @State private var showingKategori = false
 
     public init() {}
+
+    private var sortedCategories: [Category] {
+        categories.sorted { $0.order < $1.order }
+    }
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -28,6 +33,9 @@ public struct ListProdukView: View {
         .sheet(item: $showingDetailProduct) { product in
             DetailProdukView(product: product)
         }
+        .sheet(isPresented: $showingKategori) {
+            KategoriListView()
+        }
     }
 
     private var header: some View {
@@ -36,6 +44,14 @@ public struct ListProdukView: View {
                 .font(.system(size: 18, weight: .bold))
                 .foregroundColor(.cappuTextPrimary)
             Spacer()
+            Button {
+                showingKategori = true
+            } label: {
+                Image(systemName: "square.grid.2x2")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.cappuPrimary)
+            }
+            .buttonStyle(.plain)
             Button {
                 showingTambahProduk = true
             } label: {
@@ -87,7 +103,7 @@ public struct ListProdukView: View {
                     isSelected: selectedCategoryID == nil,
                     onTap: { selectedCategoryID = nil }
                 )
-                ForEach(categories) { category in
+                ForEach(sortedCategories) { category in
                     CategoryTabChip(
                         title: category.name,
                         isSelected: selectedCategoryID == category.id,
@@ -177,6 +193,13 @@ private struct ProductCard: View {
     let categoryName: String
     let onTap: () -> Void
 
+    private var isLowStock: Bool {
+        guard product.stockTracked,
+              let quantity = product.stockQuantity,
+              let minimal = product.stockMinimal else { return false }
+        return quantity <= minimal
+    }
+
     var body: some View {
         Button(action: onTap) {
             VStack(alignment: .leading, spacing: 6) {
@@ -210,6 +233,15 @@ private struct ProductCard: View {
                     Text(PriceFormatter.format(product.price))
                         .font(.system(size: 13, weight: .bold))
                         .foregroundColor(.cappuPrimary)
+                    if isLowStock {
+                        Text("Stok menipis")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color.red)
+                            .cornerRadius(4)
+                    }
                 }
             }
             .padding(8)
