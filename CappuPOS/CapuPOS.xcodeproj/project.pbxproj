@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05D97AA4F12EB64ADD9E973D /* TransaksiManualItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449AD15BAB38B8AB7D28FA09 /* TransaksiManualItemView.swift */; };
+		27A82894C6308FFA8424DE17 /* UbahStatusPOUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F731A1598D04F47CE5E9DA7 /* UbahStatusPOUseCase.swift */; };
 		27F271F7C3BCAE65A5A8BEE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEB63D47382738A1C9CAC41F /* Assets.xcassets */; };
 		2913494A3FF27C1A27C68D11 /* UbahProdukUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AB34866A459C436FE9BE66 /* UbahProdukUseCase.swift */; };
 		33E31DD7CC4B4FD1DBEA24BF /* UbahProdukView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6220339EB13D0A2D18F23 /* UbahProdukView.swift */; };
@@ -18,6 +20,7 @@
 		449ED529ADCA09F6495AA7C2 /* CapuPOSDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004A5193BA202A5A2FBFC990 /* CapuPOSDataModel.swift */; };
 		467993867A71E1838BDEC574 /* TambahKategoriView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B6E4D7D71E24E3BD175A05 /* TambahKategoriView.swift */; };
 		4A1E127D8673F35AE4DC40FE /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B6936C3F139DB38C5CEE7 /* EmptyStateView.swift */; };
+		668DB4F1B3D787B65917CEB9 /* OrderDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC1A8DE30B8FF2C8F60C106 /* OrderDetailEditView.swift */; };
 		7DCCA9F065B015A0157729F0 /* HapusKategoriUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3689A10B8CEDC1F2C79641A2 /* HapusKategoriUseCase.swift */; };
 		8A97701AE98BCD0835B7A398 /* CategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC141EC8F07B137C5BCF6197 /* CategoryPickerView.swift */; };
 		9465D1BF4CEC7DD31F636C67 /* ListProdukView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C237DD39862909D8658F6950 /* ListProdukView.swift */; };
@@ -31,12 +34,18 @@
 		DA55720AD8D0B9785641C5D3 /* TambahProdukUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB781192B93978F92C3CD83B /* TambahProdukUseCase.swift */; };
 		E01881EF2840B55D40F122CB /* AppEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF546537B50AA6E07AA4C8E /* AppEntry.swift */; };
 		E843E0BD929BCCB0F91AA2B0 /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929025B6706FA4470DBD7E8 /* CategoryRepository.swift */; };
+		F46996D3F851780F9C7F5974 /* BelumBayarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9633A9FC6349E30CB24F27 /* BelumBayarListView.swift */; };
+		F54F56CA98164992CD5DE742 /* TransaksiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA052CA900F330DB5DC00D5 /* TransaksiView.swift */; };
+		F947492C21A666899CBF9AF7 /* OrderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104D42A2E1E3421A16B27A56 /* OrderRepository.swift */; };
+		FA915C42C4E1DE1F27914C41 /* SimpanTransaksiUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458643C0AF2E0E8D76B4E234 /* SimpanTransaksiUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		004A5193BA202A5A2FBFC990 /* CapuPOSDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapuPOSDataModel.swift; sourceTree = "<group>"; };
 		0929025B6706FA4470DBD7E8 /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
 		0A53E09D2CE5DF47F12D4FDC /* CapuPOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CapuPOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CA052CA900F330DB5DC00D5 /* TransaksiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransaksiView.swift; sourceTree = "<group>"; };
+		104D42A2E1E3421A16B27A56 /* OrderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderRepository.swift; sourceTree = "<group>"; };
 		21E080FE245B66DAB3DB38EC /* UbahKategoriUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbahKategoriUseCase.swift; sourceTree = "<group>"; };
 		21F6220339EB13D0A2D18F23 /* UbahProdukView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbahProdukView.swift; sourceTree = "<group>"; };
 		250B6936C3F139DB38C5CEE7 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
@@ -44,13 +53,18 @@
 		3689A10B8CEDC1F2C79641A2 /* HapusKategoriUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapusKategoriUseCase.swift; sourceTree = "<group>"; };
 		36B6E4D7D71E24E3BD175A05 /* TambahKategoriView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TambahKategoriView.swift; sourceTree = "<group>"; };
 		3E5986F3CC62A1F0B55D4605 /* DetailProdukView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProdukView.swift; sourceTree = "<group>"; };
+		449AD15BAB38B8AB7D28FA09 /* TransaksiManualItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransaksiManualItemView.swift; sourceTree = "<group>"; };
+		458643C0AF2E0E8D76B4E234 /* SimpanTransaksiUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpanTransaksiUseCase.swift; sourceTree = "<group>"; };
 		4FF546537B50AA6E07AA4C8E /* AppEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntry.swift; sourceTree = "<group>"; };
 		5F7D307F549A312A0580F1BD /* TambahProdukView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TambahProdukView.swift; sourceTree = "<group>"; };
+		6F731A1598D04F47CE5E9DA7 /* UbahStatusPOUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbahStatusPOUseCase.swift; sourceTree = "<group>"; };
 		7D75C8C8EF4DDFA2A13130D5 /* CekProdukKosongUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CekProdukKosongUseCase.swift; sourceTree = "<group>"; };
 		87EAC8A89E4965F642415F0E /* PriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
+		8C9633A9FC6349E30CB24F27 /* BelumBayarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BelumBayarListView.swift; sourceTree = "<group>"; };
 		9B60BE20F8E08F42EB1229BF /* KategoriListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KategoriListView.swift; sourceTree = "<group>"; };
 		B6942D92A78BD8306F7C7657 /* ReorderKategoriUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderKategoriUseCase.swift; sourceTree = "<group>"; };
 		B73D6A927B052B51CAD38169 /* TambahKategoriUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TambahKategoriUseCase.swift; sourceTree = "<group>"; };
+		BAC1A8DE30B8FF2C8F60C106 /* OrderDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailEditView.swift; sourceTree = "<group>"; };
 		BC141EC8F07B137C5BCF6197 /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
 		C237DD39862909D8658F6950 /* ListProdukView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProdukView.swift; sourceTree = "<group>"; };
 		CE00BA6359883AE6028321C2 /* HapusProdukUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapusProdukUseCase.swift; sourceTree = "<group>"; };
@@ -95,12 +109,24 @@
 				3689A10B8CEDC1F2C79641A2 /* HapusKategoriUseCase.swift */,
 				CE00BA6359883AE6028321C2 /* HapusProdukUseCase.swift */,
 				B6942D92A78BD8306F7C7657 /* ReorderKategoriUseCase.swift */,
+				458643C0AF2E0E8D76B4E234 /* SimpanTransaksiUseCase.swift */,
 				B73D6A927B052B51CAD38169 /* TambahKategoriUseCase.swift */,
 				EB781192B93978F92C3CD83B /* TambahProdukUseCase.swift */,
 				21E080FE245B66DAB3DB38EC /* UbahKategoriUseCase.swift */,
 				31AB34866A459C436FE9BE66 /* UbahProdukUseCase.swift */,
+				6F731A1598D04F47CE5E9DA7 /* UbahStatusPOUseCase.swift */,
 			);
 			path = UseCase;
+			sourceTree = "<group>";
+		};
+		682F0E3FF5AAE56F642266A7 /* Transaksi */ = {
+			isa = PBXGroup;
+			children = (
+				8C9633A9FC6349E30CB24F27 /* BelumBayarListView.swift */,
+				BAC1A8DE30B8FF2C8F60C106 /* OrderDetailEditView.swift */,
+				0CA052CA900F330DB5DC00D5 /* TransaksiView.swift */,
+			);
+			path = Transaksi;
 			sourceTree = "<group>";
 		};
 		6AA4CF6FDF00DF387ADB31D1 /* Presentation */ = {
@@ -109,6 +135,8 @@
 				2915067665923722C25F2C7A /* Kategori */,
 				7285DD2C59EAB4D8FC90FBFD /* Onboarding */,
 				F22C45B5A74FD2E1DDB6D7F9 /* Produk */,
+				682F0E3FF5AAE56F642266A7 /* Transaksi */,
+				764554E463594517B847A0DE /* TransaksiManual */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -132,6 +160,14 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		764554E463594517B847A0DE /* TransaksiManual */ = {
+			isa = PBXGroup;
+			children = (
+				449AD15BAB38B8AB7D28FA09 /* TransaksiManualItemView.swift */,
+			);
+			path = TransaksiManual;
+			sourceTree = "<group>";
+		};
 		B32B724D0238E6D7C2D9DBF6 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				0929025B6706FA4470DBD7E8 /* CategoryRepository.swift */,
+				104D42A2E1E3421A16B27A56 /* OrderRepository.swift */,
 				F78042D0BD6EEE825BC4FEC6 /* ProductRepository.swift */,
 			);
 			path = Repository;
@@ -220,7 +257,7 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					88777BD5EED9940CDC21F2D1 = {
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -261,6 +298,7 @@
 			files = (
 				E01881EF2840B55D40F122CB /* AppEntry.swift in Sources */,
 				B8B5BDAB0763EA82E6B4B624 /* ArurKetersediaanStokView.swift in Sources */,
+				F46996D3F851780F9C7F5974 /* BelumBayarListView.swift in Sources */,
 				449ED529ADCA09F6495AA7C2 /* CapuPOSDataModel.swift in Sources */,
 				8A97701AE98BCD0835B7A398 /* CategoryPickerView.swift in Sources */,
 				E843E0BD929BCCB0F91AA2B0 /* CategoryRepository.swift in Sources */,
@@ -271,17 +309,23 @@
 				43C028C7F40694A2E83EAAB3 /* HapusProdukUseCase.swift in Sources */,
 				42D81CE89D6F2EE3A1CF4EE2 /* KategoriListView.swift in Sources */,
 				9465D1BF4CEC7DD31F636C67 /* ListProdukView.swift in Sources */,
+				668DB4F1B3D787B65917CEB9 /* OrderDetailEditView.swift in Sources */,
+				F947492C21A666899CBF9AF7 /* OrderRepository.swift in Sources */,
 				3F04216D7B40A2B3ABE4AA55 /* PriceFormatter.swift in Sources */,
 				C812E4F50C2EFA8A8EEBC6E3 /* ProductRepository.swift in Sources */,
 				BEA95714F47D4331F7D516D5 /* ReorderKategoriUseCase.swift in Sources */,
+				FA915C42C4E1DE1F27914C41 /* SimpanTransaksiUseCase.swift in Sources */,
 				9B8B2533B7D712CE3FD6C73D /* TambahKategoriUseCase.swift in Sources */,
 				467993867A71E1838BDEC574 /* TambahKategoriView.swift in Sources */,
 				DA55720AD8D0B9785641C5D3 /* TambahProdukUseCase.swift in Sources */,
 				AF47093E50E592B6B17C02E3 /* TambahProdukView.swift in Sources */,
+				05D97AA4F12EB64ADD9E973D /* TransaksiManualItemView.swift in Sources */,
+				F54F56CA98164992CD5DE742 /* TransaksiView.swift in Sources */,
 				35AE1725015686F8A49C2621 /* UbahKategoriUseCase.swift in Sources */,
 				D33DFFBD94A753BAEAE20444 /* UbahKategoriView.swift in Sources */,
 				2913494A3FF27C1A27C68D11 /* UbahProdukUseCase.swift in Sources */,
 				33E31DD7CC4B4FD1DBEA24BF /* UbahProdukView.swift in Sources */,
+				27A82894C6308FFA8424DE17 /* UbahStatusPOUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,8 +455,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -432,8 +476,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

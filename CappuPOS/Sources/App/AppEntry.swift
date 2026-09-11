@@ -8,7 +8,8 @@ struct CapuPOSApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: [Product.self, Category.self])
+        // TASK-005: Order + OrderItem WAJIB didaftarkan agar SwiftData persist.
+        .modelContainer(for: [Product.self, Category.self, Order.self, OrderItem.self])
     }
 }
 
@@ -84,9 +85,34 @@ struct SplashScreen: View {
 }
 
 struct HomeView: View {
+    @State private var showingTransaksi = false
+    @State private var showingBelumBayar = false
+
     var body: some View {
         NavigationView {
             ListProdukView()
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            showingTransaksi = true
+                        } label: {
+                            Image(systemName: "cart")
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            showingBelumBayar = true
+                        } label: {
+                            Image(systemName: "clock")
+                        }
+                    }
+                }
+        }
+        .sheet(isPresented: $showingTransaksi) {
+            TransaksiView()
+        }
+        .sheet(isPresented: $showingBelumBayar) {
+            BelumBayarListView()
         }
     }
 }
