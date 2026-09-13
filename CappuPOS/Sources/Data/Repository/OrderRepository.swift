@@ -25,6 +25,26 @@ public final class OrderRepository {
         return try context.fetch(descriptor).first
     }
 
+    /// Riwayat transaksi lunas (FR-07): sembunyikan soft-deleted & isHidden (FR-07.3), terbaru dulu.
+    public func fetchRiwayatLunas() throws -> [Order] {
+        let lunas = OrderStatus.lunas
+        let descriptor = FetchDescriptor<Order>(
+            predicate: #Predicate { $0.status == lunas && $0.isDeleted == false && $0.isHidden == false },
+            sortBy: [SortDescriptor(\.tanggal, order: .reverse)]
+        )
+        return try context.fetch(descriptor)
+    }
+
+    /// Semua order non-deleted untuk agregasi laporan (FR-09.1, filter in-memory
+    /// di layer ViewModel/UseCase — DECISIONS.md [2026-09-13] poin 8).
+    public func fetchAllOrders() throws -> [Order] {
+        let descriptor = FetchDescriptor<Order>(
+            predicate: #Predicate { $0.isDeleted == false },
+            sortBy: [SortDescriptor(\.tanggal, order: .reverse)]
+        )
+        return try context.fetch(descriptor)
+    }
+
     // MARK: - Create
 
     /// Simpan transaksi (Open Bill): status awal "belum_bayar", subtotal dihitung dari item.
@@ -141,6 +161,52 @@ public final class OrderRepository {
         let order = try fetchOrder(id: orderID)
         order.isDeleted = true
         order.deletedAt = Date()
+        order.updatedAt = Date()
+        try context.save()
+    }
+
+    // MARK: - Pembayaran (TASK-006 FR-06)
+
+    /// Bayar order "belum_bayar" -> status "lunas" dgn metode & nominal diterima.
+    /// Kembalian otomatis dihitung untuk tunai; nullable utk non-tunai.
+    public func bayar(
+        orderID: UUID,
+        metodeBayar: String,
+        nominalDiterima: Double? = nil,
+        catatan: String? = nil
+    ) throws -> Order {
+        let order = try fetchOrder(id: orderID)
+        let kembalian: Double?
+        if let nominalDiterima = nominalDiterima {
+            kembalian = nominalDiterima - order.subtotal
+        } else {
+            kembalian = nil
+        }
+        order.status = OrderStatus.lunas
+        order.metodeBayar = metodeBayar
+        order.nominalDiterima = nominalDiterima
+        order.kembalian = kembalian
+        if let catatan = catatan, !catatan.isEmpty {
+            order.catatan = catatan
+        }
+        order.updatedAt = Date()
+        try context.save()
+        return order
+    }
+
+    /// Hard-delete order lunas (FR-08.2): hapus fisik termasuk semua item.
+    /// Cascade delete via @Relationship rule, tidak perlu manual.
+    public func hardDelete(orderID: UUID) throws {
+        let order = try fetchOrder(id: orderID)
+        context.delete(order)
+        try context.save()
+    }
+
+    /// Sembunyikan order dari list riwayat tanpa pengaruh laporan (FR-07.3).
+    /// Beda dari soft-delete: `isHidden` tidak mempengaruhi agregasi FR-09.
+    public func sembunyikan(orderID: UUID) throws {
+        let order = try fetchOrder(id: orderID)
+        order.isHidden = true
         order.updatedAt = Date()
         try context.save()
     }

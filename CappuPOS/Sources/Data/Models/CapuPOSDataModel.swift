@@ -63,8 +63,41 @@ public final class Category {
 // field additive otomatis — tidak perlu VersionedSchema.
 
 /// Literal status transaksi (snake_case, identik Android `OrderEntity.status`).
+/// TASK-006: `lunas` ditambahkan (FR-06.4), pengecualian eksplisit DECISIONS.md
+/// [2026-09-13] poin 4 — additive saja.
 public enum OrderStatus {
     public static let belumBayar = "belum_bayar"
+    public static let lunas = "lunas"
+}
+
+/// Laporan histori perubahan stok (FR-09.2). Field setara Android
+/// `StockHistoryEntity` (DECISIONS.md [2026-09-13] poin 7). Ditulis otomatis
+/// saat order lunas (`reason = "order_<orderID>"`); manual adjustment di luar scope TASK-006.
+@Model
+public final class StockHistoryEntry {
+    public var id: UUID
+    public var productID: UUID
+    public var quantityBefore: Int
+    public var quantityAfter: Int
+    /// String bebas; format `"order_<orderID>"` untuk pengurangan stok otomatis.
+    public var reason: String
+    public var timestamp: Date
+
+    public init(
+        id: UUID = UUID(),
+        productID: UUID,
+        quantityBefore: Int,
+        quantityAfter: Int,
+        reason: String,
+        timestamp: Date = Date()
+    ) {
+        self.id = id
+        self.productID = productID
+        self.quantityBefore = quantityBefore
+        self.quantityAfter = quantityAfter
+        self.reason = reason
+        self.timestamp = timestamp
+    }
 }
 
 /// Literal status PO (snake_case, identik Android `OrderEntity.statusPo`).

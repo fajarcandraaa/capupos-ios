@@ -9,7 +9,8 @@ struct CapuPOSApp: App {
             ContentView()
         }
         // TASK-005: Order + OrderItem WAJIB didaftarkan agar SwiftData persist.
-        .modelContainer(for: [Product.self, Category.self, Order.self, OrderItem.self])
+        // TASK-006: StockHistoryEntry (histori stok FR-09.2).
+        .modelContainer(for: [Product.self, Category.self, Order.self, OrderItem.self, StockHistoryEntry.self])
     }
 }
 
@@ -87,6 +88,11 @@ struct SplashScreen: View {
 struct HomeView: View {
     @State private var showingTransaksi = false
     @State private var showingBelumBayar = false
+    // TASK-006: entry point Pembayaran / Riwayat / Laporan (DECISIONS.md
+    // [2026-09-13] poin 3).
+    @State private var showingPembayaran = false
+    @State private var showingRiwayat = false
+    @State private var showingLaporan = false
 
     var body: some View {
         NavigationView {
@@ -99,11 +105,26 @@ struct HomeView: View {
                             Image(systemName: "cart")
                         }
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
                         Button {
                             showingBelumBayar = true
                         } label: {
                             Image(systemName: "clock")
+                        }
+                        Button {
+                            showingPembayaran = true
+                        } label: {
+                            Image(systemName: "banknote")
+                        }
+                        Button {
+                            showingRiwayat = true
+                        } label: {
+                            Image(systemName: "clock.arrow.circlepath")
+                        }
+                        Button {
+                            showingLaporan = true
+                        } label: {
+                            Image(systemName: "chart.bar")
                         }
                     }
                 }
@@ -113,6 +134,15 @@ struct HomeView: View {
         }
         .sheet(isPresented: $showingBelumBayar) {
             BelumBayarListView()
+        }
+        .sheet(isPresented: $showingPembayaran) {
+            PembayaranEntryView()
+        }
+        .sheet(isPresented: $showingRiwayat) {
+            RiwayatListView()
+        }
+        .sheet(isPresented: $showingLaporan) {
+            LaporanView()
         }
     }
 }
