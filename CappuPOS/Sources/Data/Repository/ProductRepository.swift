@@ -76,4 +76,21 @@ public final class ProductRepository {
         product.updatedAt = Date()
         try context.save()
     }
+
+    /// Kurangi stok + catat StockHistoryEntry (FR-09.2, TASK-006). Skip diam-diam
+    /// bila produk tidak melacak stok (`stockTracked == false`) — tidak ada baseline
+    /// stok untuk dicatat. ponytail: floor di 0, tidak reject stok minus; upgrade
+    /// ke validasi stok cukup kalau ada requirement penolakan transaksi kelak.
+    @discardableResult
+    public func reduceStockQuantity(productID: UUID, by quantity: Int, reason: String) throws -> StockHistoryEntry? {
+        guard let product = try fetchById(id: productID), product.stockTracked else { return nil }
+        let before = product.stockQuantity ?? 0
+        let after = max(0, before - quantity)
+        product.stockQuantity = after
+        product.updatedAt = Date()
+        let entry = StockHistoryEntry(productID: productID, quantityBefore: before, quantityAfter: after, reason: reason)
+        context.insert(entry)
+        try context.save()
+        return entry
+    }
 }
