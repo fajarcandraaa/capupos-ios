@@ -145,10 +145,13 @@ public struct BelumBayarListView: View {
         return "Transaksi"
     }
 
+    /// FR-08.2 (TASK-006 ruling DECISIONS.md [2026-09-13] AC5): dispatch via
+    /// HapusTransaksiUseCase agar order belum_bayar dihapus permanen (hard
+    /// delete), bukan soft-delete langsung.
     private func delete(_ order: Order) {
-        let repository = OrderRepository(context: modelContext)
+        let useCase = HapusTransaksiUseCase(orderRepository: OrderRepository(context: modelContext))
         do {
-            try repository.softDelete(orderID: order.id)
+            try useCase.execute(orderID: order.id)
         } catch {
             alertMessage = error.localizedDescription
             showingAlert = true

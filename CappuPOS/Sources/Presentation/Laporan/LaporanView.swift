@@ -14,6 +14,7 @@ public struct LaporanView: View {
     @State private var searchText = ""
     @State private var filter = FilterRiwayat()
     @State private var showingFilter = false
+    @State private var showingHistoriStok = false
 
     public init() {}
 
@@ -41,6 +42,9 @@ public struct LaporanView: View {
         .sheet(isPresented: $showingFilter) {
             RiwayatFilterView(filter: $filter, categories: categories)
         }
+        .sheet(isPresented: $showingHistoriStok) {
+            HistoriStokView()
+        }
     }
 
     private var header: some View {
@@ -58,6 +62,16 @@ public struct LaporanView: View {
                 .foregroundColor(.cappuTextPrimary)
 
             Spacer()
+
+            // FR-09.2: histori perubahan stok, diakses dari Laporan.
+            Button {
+                showingHistoriStok = true
+            } label: {
+                Image(systemName: "shippingbox")
+                    .font(.system(size: 16))
+                    .foregroundColor(.cappuMuted)
+            }
+            .buttonStyle(.plain)
 
             Button {
                 showingFilter = true
