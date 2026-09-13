@@ -37,6 +37,14 @@ public final class BayarTransaksiUseCase {
                 userInfo: [NSLocalizedDescriptionKey: "Order tidak ditemukan"]
             )
         }
+        // Guard idempoten (QA TASK-006 §2.3): order yang sudah lunas tidak boleh
+        // dibayar lagi — mencegah pengurangan stok ganda + StockHistoryEntry duplikat.
+        guard order.status == OrderStatus.belumBayar else {
+            throw NSError(
+                domain: "BayarTransaksiUseCase", code: -2,
+                userInfo: [NSLocalizedDescriptionKey: "Order sudah dibayar"]
+            )
+        }
         for item in order.items {
             guard let productID = item.productID else { continue }
             _ = try productRepository.reduceStockQuantity(

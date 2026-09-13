@@ -63,11 +63,18 @@ public final class FetchRiwayatUseCase {
                 }
             }
         }
+        // Normalisasi boundary: DatePicker `.date`-only menyimpan jam:menit:detik
+        // dari momen filter dibuka. `dari` dibulatkan ke awal hari, `sampai`
+        // ke akhir hari (exclusive) supaya order sepanjang hari "sampai" tetap
+        // masuk (fix off-by-time-of-day — QA TASK-006).
+        let calendar = Calendar.current
         if let dari = filter.dariTanggal {
-            result = result.filter { $0.tanggal >= dari }
+            let start = calendar.startOfDay(for: dari)
+            result = result.filter { $0.tanggal >= start }
         }
         if let sampai = filter.sampaiTanggal {
-            result = result.filter { $0.tanggal <= sampai }
+            let end = calendar.startOfDay(for: sampai).addingTimeInterval(86_400)
+            result = result.filter { $0.tanggal < end }
         }
         if let metode = filter.metodeBayar {
             result = result.filter { $0.metodeBayar == metode }
