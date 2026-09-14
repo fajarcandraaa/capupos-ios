@@ -19,6 +19,12 @@ public final class ProductRepository {
         return try context.fetch(descriptor).first
     }
 
+    /// Semua produk non-deleted (FR-13.1 sheet "Produk" export, TASK-007).
+    public func fetchAll() throws -> [Product] {
+        let descriptor = FetchDescriptor<Product>(predicate: #Predicate { $0.isDeleted == false })
+        return try context.fetch(descriptor)
+    }
+
     public func add(
         name: String,
         price: Double,
