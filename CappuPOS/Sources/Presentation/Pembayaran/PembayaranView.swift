@@ -14,6 +14,7 @@ struct PembayaranView: View {
     @State private var catatan: String = ""
     @State private var showingAlert = false
     @State private var alertMessage = ""
+    @State private var showingStruk = false
 
     var kembalian: Double {
         guard let nominal = Double(nominalDiterima) else { return 0 }
@@ -97,6 +98,9 @@ struct PembayaranView: View {
             } message: {
                 Text(alertMessage)
             }
+            .fullScreenCover(isPresented: $showingStruk) {
+                StrukView(orderID: order.id)
+            }
         }
     }
 
@@ -114,7 +118,8 @@ struct PembayaranView: View {
                 nominalDiterima: nominal,
                 catatan: ket
             )
-            dismiss()
+            // TASK-009 AC1: tampilkan StrukView dulu, jangan langsung dismiss
+            showingStruk = true
         } catch {
             alertMessage = error.localizedDescription
             showingAlert = true

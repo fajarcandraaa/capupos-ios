@@ -15,6 +15,7 @@ public struct RiwayatListView: View {
     @State private var showingFilter = false
     @State private var showingAlert = false
     @State private var alertMessage = ""
+    @State private var selectedOrder: Order?
 
     public init() {}
 
@@ -44,6 +45,9 @@ public struct RiwayatListView: View {
         .background(Color.white)
         .sheet(isPresented: $showingFilter) {
             RiwayatFilterView(filter: $filter, categories: categories)
+        }
+        .sheet(item: $selectedOrder) { order in
+            RiwayatDetailView(order: order)
         }
         .alert("Error", isPresented: $showingAlert) {
             Button("OK", role: .cancel) { }
@@ -152,6 +156,10 @@ public struct RiwayatListView: View {
                     .font(.system(size: 11))
                     .foregroundColor(.cappuPrimary)
             }
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            selectedOrder = order
         }
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
