@@ -209,3 +209,44 @@ public final class OrderItem {
         self.updatedAt = updatedAt
     }
 }
+
+// MARK: - Store (Profil Usaha) — TASK-007
+// Singleton per outlet. Additive pengecualian forbidden_paths DECISIONS.md
+// [2026-09-14] poin 2 — untuk FR-10 (Profil Usaha) + FR-10.2 (header struk).
+
+/// Data usaha: profil toko (nama, logo, kategori, deskripsi, alamat, telepon).
+/// Single-outlet app — satu row saja, constraint dijaga di `StoreRepository.fetchOrCreate`.
+@Model
+public final class Store {
+    public var id: UUID
+    /// Nama usaha (wajib).
+    public var nama: String
+    /// Path/URI logo lokal (bukan data biner di DB), nullable.
+    public var logo: String?
+    /// Kategori usaha free text (bukan enum — lihat DECISIONS.md [2026-09-14] poin 3).
+    public var kategoriUsaha: String?
+    /// Deskripsi usaha singkat, nullable.
+    public var deskripsi: String?
+    /// Alamat usaha (wajib).
+    public var alamat: String
+    /// Nomor telepon kontak, nullable.
+    public var telepon: String?
+
+    public init(
+        id: UUID = UUID(),
+        nama: String = "",
+        logo: String? = nil,
+        kategoriUsaha: String? = nil,
+        deskripsi: String? = nil,
+        alamat: String = "",
+        telepon: String? = nil
+    ) {
+        self.id = id
+        self.nama = nama
+        self.logo = logo
+        self.kategoriUsaha = kategoriUsaha
+        self.deskripsi = deskripsi
+        self.alamat = alamat
+        self.telepon = telepon
+    }
+}

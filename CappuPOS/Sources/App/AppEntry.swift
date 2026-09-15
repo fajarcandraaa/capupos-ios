@@ -10,7 +10,8 @@ struct CapuPOSApp: App {
         }
         // TASK-005: Order + OrderItem WAJIB didaftarkan agar SwiftData persist.
         // TASK-006: StockHistoryEntry (histori stok FR-09.2).
-        .modelContainer(for: [Product.self, Category.self, Order.self, OrderItem.self, StockHistoryEntry.self])
+        // TASK-007: Store (profil usaha, FR-10) — singleton dijaga StoreRepository.
+        .modelContainer(for: [Product.self, Category.self, Order.self, OrderItem.self, StockHistoryEntry.self, Store.self])
     }
 }
 
@@ -93,6 +94,10 @@ struct HomeView: View {
     @State private var showingPembayaran = false
     @State private var showingRiwayat = false
     @State private var showingLaporan = false
+    // TASK-007: menu "Profil/Pengaturan" gabungan (Profil Usaha + Export,
+    // DECISIONS.md [2026-09-14] poin 7) + reminder backup (FR-10.3).
+    @State private var showingProfil = false
+    @State private var showingReminder = false
 
     var body: some View {
         NavigationView {
@@ -126,6 +131,11 @@ struct HomeView: View {
                         } label: {
                             Image(systemName: "chart.bar")
                         }
+                        Button {
+                            showingProfil = true
+                        } label: {
+                            Image(systemName: "gearshape")
+                        }
                     }
                 }
         }
@@ -143,6 +153,20 @@ struct HomeView: View {
         }
         .sheet(isPresented: $showingLaporan) {
             LaporanView()
+        }
+        .sheet(isPresented: $showingProfil) {
+            ProfilUsahaView()
+        }
+        .sheet(isPresented: $showingReminder) {
+            ReminderBackupView()
+                .interactiveDismissDisabled()
+        }
+        .task {
+            // TASK-007 FR-10.3: reminder backup mingguan, pola .task sama dengan
+            // CekProdukKosongUseCase (DECISIONS.md [2026-09-14] poin 5).
+            if CekReminderBackupUseCase().execute() {
+                showingReminder = true
+            }
         }
     }
 }
