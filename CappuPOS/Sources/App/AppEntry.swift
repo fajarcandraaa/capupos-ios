@@ -159,6 +159,7 @@ struct HomeView: View {
         }
         .sheet(isPresented: $showingReminder) {
             ReminderBackupView()
+                .interactiveDismissDisabled()
         }
         .task {
             // TASK-007 FR-10.3: reminder backup mingguan, pola .task sama dengan

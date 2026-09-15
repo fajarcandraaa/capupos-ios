@@ -104,7 +104,7 @@ public final class ExportDataUseCase {
     }
 
     private func formatRp(_ value: Double) -> String {
-        "Rp\(Int(value))"
+        PriceFormatter.format(value)
     }
 
     // MARK: - XLSX writer (OOXML minimal + zip via NSFileCoordinator)

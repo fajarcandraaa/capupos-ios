@@ -13,6 +13,10 @@ public struct ProfilUsahaView: View {
 
     @State private var nama = ""
     @State private var logoPath = ""
+    /// Path logo yang tersimpan di Store saat form dibuka — file lama hanya
+    /// dihapus saat simpan sukses, bukan saat edit di form (cancel tidak boleh
+    /// meninggalkan Store menunjuk file yang sudah terhapus).
+    @State private var storedLogoPath: String?
     @State private var kategoriUsaha = ""
     @State private var deskripsi = ""
     @State private var alamat = ""
@@ -149,6 +153,7 @@ public struct ProfilUsahaView: View {
             await MainActor.run {
                 nama = store.nama
                 logoPath = store.logo ?? ""
+                storedLogoPath = store.logo
                 kategoriUsaha = store.kategoriUsaha ?? ""
                 deskripsi = store.deskripsi ?? ""
                 alamat = store.alamat
@@ -166,6 +171,9 @@ public struct ProfilUsahaView: View {
     }
 
     /// Simpan foto terpilih ke Documents/, catat path-nya (bukan data biner di DB).
+    /// Review #2: write gagal jangan diam-diam — path rusak jangan tersimpan.
+    /// File lama (storedLogoPath) baru dihapus saat simpan() sukses, bukan di
+    /// sini — supaya cancel form tidak meninggalkan Store menunjuk file hilang.
     private func muatLogo(_ item: PhotosPickerItem?) {
         guard let item = item else { return }
         Task {
@@ -173,8 +181,16 @@ public struct ProfilUsahaView: View {
                   let image = UIImage(data: data) else { return }
             let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             let fileURL = dir.appendingPathComponent("store-logo-\(UUID().uuidString).jpg")
-            guard let jpeg = image.jpegData(compressionQuality: 0.8) else { return }
-            try? jpeg.write(to: fileURL)
+            guard let jpeg = image.jpegData(compressionQuality: 0.8) else {
+                await MainActor.run { tampilkanErrorLogo("Gagal memproses gambar logo.") }
+                return
+            }
+            do {
+                try jpeg.write(to: fileURL)
+            } catch {
+                await MainActor.run { tampilkanErrorLogo("Gagal menyimpan logo: \(error.localizedDescription)") }
+                return
+            }
             await MainActor.run {
                 logoImage = image
                 logoPath = fileURL.path
@@ -188,6 +204,11 @@ public struct ProfilUsahaView: View {
         logoSelection = nil
     }
 
+    private func tampilkanErrorLogo(_ pesan: String) {
+        alertMessage = pesan
+        showingAlert = true
+    }
+
     private func simpan() {
         do {
             _ = try simpanUseCase.execute(
@@ -198,6 +219,11 @@ public struct ProfilUsahaView: View {
                 alamat: alamat,
                 telepon: telepon.isEmpty ? nil : telepon
             )
+            // Bersihkan file logo lama (tidak di-gunakan lagi di Store).
+            // Hanya saat simpan sukses — jangan hapus saat cancel/error.
+            if let pathLama = storedLogoPath, pathLama != logoPath, !pathLama.isEmpty {
+                try? FileManager.default.removeItem(atPath: pathLama)
+            }
             dismiss()
         } catch let error as NSError {
             alertMessage = error.userInfo[NSLocalizedDescriptionKey] as? String ?? "Gagal simpan profil"
