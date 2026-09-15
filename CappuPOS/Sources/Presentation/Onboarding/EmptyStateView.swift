@@ -200,7 +200,8 @@ struct AddProductForm: View {
     }
 
     private var canSave: Bool {
-        !trimmedName.isEmpty
+        !trimmedName.isEmpty &&
+        selectedCategory != nil
     }
 
     var body: some View {
