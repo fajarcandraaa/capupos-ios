@@ -10,11 +10,16 @@ public struct RiwayatDetailView: View {
     let order: Order
 
     @State private var showingStruk = false
-    @State private var productNames: [UUID: String] = [:]
 
     /// Query semua produk (termasuk deleted) — untuk lookup nama bahkan jika produk sudah terhapus.
     /// Mirroring perilaku GenerateStrukUseCase.resolveNamaItem (gunakan fetchById, bukan filter).
     @Query private var allProducts: [Product]
+
+    /// Dict nama produk, reaktif dari `@Query` — computed supaya rename produk
+    /// langsung kebaca, tanpa flicker (render awal) atau race `.task`.
+    private var productNames: [UUID: String] {
+        Dictionary(uniqueKeysWithValues: allProducts.map { ($0.id, $0.name) })
+    }
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -95,9 +100,6 @@ public struct RiwayatDetailView: View {
         .fullScreenCover(isPresented: $showingStruk) {
             StrukView(orderID: order.id)
         }
-        .task {
-            loadProductNames()
-        }
     }
 
     private var header: some View {
@@ -138,14 +140,6 @@ public struct RiwayatDetailView: View {
         .padding(12)
         .background(Color.cappuPanel)
         .cornerRadius(6)
-    }
-
-    /// Cache nama produk sekali (dict dari @Query `allProducts`), bukan `fetchById` per item
-    /// di dalam `ForEach` — hindari O(n) fetch saat render. Termasuk produk terhapus
-    /// (soft-deleted) supaya konsisten dengan struk (GenerateStrukUseCase gunakan fetchById
-    /// tanpa filter isDeleted).
-    private func loadProductNames() {
-        productNames = Dictionary(uniqueKeysWithValues: allProducts.map { ($0.id, $0.name) })
     }
 
     private func itemLabel(_ item: OrderItem) -> String {
