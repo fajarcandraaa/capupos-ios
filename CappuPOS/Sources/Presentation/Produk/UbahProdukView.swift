@@ -30,7 +30,8 @@ public struct UbahProdukView: View {
     private var canSave: Bool {
         !productName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
         !productPrice.isEmpty &&
-        Double(productPrice) ?? 0 > 0
+        Double(productPrice) ?? 0 > 0 &&
+        selectedCategory != nil
     }
 
     public var body: some View {
