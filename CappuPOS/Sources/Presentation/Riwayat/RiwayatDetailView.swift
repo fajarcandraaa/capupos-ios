@@ -12,91 +12,83 @@ public struct RiwayatDetailView: View {
     @State private var showingStruk = false
 
     public var body: some View {
-        NavigationView {
-            VStack(spacing: 0) {
-                header
+        VStack(spacing: 0) {
+            header
 
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 16) {
-                        // Order metadata
-                        VStack(alignment: .leading, spacing: 8) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    // Order metadata
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text("Tanggal")
+                                .foregroundColor(.cappuMuted)
+                            Spacer()
+                            Text(order.tanggal, style: .date)
+                                .font(.system(size: 14, weight: .semibold))
+                        }
+
+                        if let metode = order.metodeBayar {
                             HStack {
-                                Text("Tanggal")
+                                Text("Metode")
                                     .foregroundColor(.cappuMuted)
                                 Spacer()
-                                Text(order.tanggal, style: .date)
+                                Text(metodeLabel(metode))
                                     .font(.system(size: 14, weight: .semibold))
                             }
-
-                            if let metode = order.metodeBayar {
-                                HStack {
-                                    Text("Metode")
-                                        .foregroundColor(.cappuMuted)
-                                    Spacer()
-                                    Text(metodeLabel(metode))
-                                        .font(.system(size: 14, weight: .semibold))
-                                }
-                            }
                         }
-                        .padding(12)
-                        .background(Color.cappuPanel)
-                        .cornerRadius(8)
-
-                        // Items
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Item")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.cappuTextPrimary)
-
-                            ForEach(order.items, id: \.id) { item in
-                                itemRow(item)
-                            }
-                        }
-
-                        // Subtotal
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack {
-                                Text("Total")
-                                    .foregroundColor(.cappuMuted)
-                                Spacer()
-                                Text(PriceFormatter.format(order.subtotal))
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundColor(.cappuPrimary)
-                            }
-                        }
-                        .padding(12)
-                        .background(Color.cappuPanel)
-                        .cornerRadius(8)
                     }
-                    .padding(16)
-                }
-                .background(Color.white)
-
-                // Tombol cetak
-                Button(action: { showingStruk = true }) {
-                    HStack {
-                        Image(systemName: "square.and.arrow.up")
-                        Text("Cetak")
-                    }
-                    .frame(maxWidth: .infinity)
                     .padding(12)
-                    .background(Color.cappuPrimary)
-                    .foregroundColor(.white)
-                    .font(.system(size: 14, weight: .semibold))
+                    .background(Color.cappuPanel)
+                    .cornerRadius(8)
+
+                    // Items
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Item")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.cappuTextPrimary)
+
+                        ForEach(order.items, id: \.id) { item in
+                            itemRow(item)
+                        }
+                    }
+
+                    // Subtotal
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text("Total")
+                                .foregroundColor(.cappuMuted)
+                            Spacer()
+                            Text(PriceFormatter.format(order.subtotal))
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(.cappuPrimary)
+                        }
+                    }
+                    .padding(12)
+                    .background(Color.cappuPanel)
                     .cornerRadius(8)
                 }
                 .padding(16)
             }
             .background(Color.white)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Tutup") { dismiss() }
+
+            // Tombol cetak
+            Button(action: { showingStruk = true }) {
+                HStack {
+                    Image(systemName: "square.and.arrow.up")
+                    Text("Cetak")
                 }
+                .frame(maxWidth: .infinity)
+                .padding(12)
+                .background(Color.cappuPrimary)
+                .foregroundColor(.white)
+                .font(.system(size: 14, weight: .semibold))
+                .cornerRadius(8)
             }
-            .fullScreenCover(isPresented: $showingStruk) {
-                StrukView(orderID: order.id)
-            }
+            .padding(16)
+        }
+        .background(Color.white)
+        .fullScreenCover(isPresented: $showingStruk) {
+            StrukView(orderID: order.id)
         }
     }
 
@@ -126,7 +118,7 @@ public struct RiwayatDetailView: View {
                 Text(itemLabel(item))
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(.cappuTextPrimary)
-                Text("\(item.quantity)x · \(PriceFormatter.format(item.price * Double(item.quantity)))")
+                Text("\(item.quantity)x · \(PriceFormatter.format(item.price))")
                     .font(.system(size: 12))
                     .foregroundColor(.cappuMuted)
             }

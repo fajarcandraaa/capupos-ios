@@ -98,7 +98,11 @@ struct PembayaranView: View {
             } message: {
                 Text(alertMessage)
             }
-            .fullScreenCover(isPresented: $showingStruk) {
+            .fullScreenCover(isPresented: $showingStruk, onDismiss: {
+                // TASK-009 AC1: struk tutup → dismiss form bayar, jangan tinggalkan
+                // form yang sudah lunas (tombol Bayar bisa picu error idempoten)
+                dismiss()
+            }) {
                 StrukView(orderID: order.id)
             }
         }
