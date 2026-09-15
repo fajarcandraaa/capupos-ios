@@ -12,6 +12,10 @@ public struct RiwayatDetailView: View {
     @State private var showingStruk = false
     @State private var productNames: [UUID: String] = [:]
 
+    /// Query semua produk (termasuk deleted) — untuk lookup nama bahkan jika produk sudah terhapus.
+    /// Mirroring perilaku GenerateStrukUseCase.resolveNamaItem (gunakan fetchById, bukan filter).
+    @Query private var allProducts: [Product]
+
     public var body: some View {
         VStack(spacing: 0) {
             header
@@ -136,11 +140,12 @@ public struct RiwayatDetailView: View {
         .cornerRadius(6)
     }
 
-    /// Cache nama produk sekali (satu `fetchAll`), bukan `fetchById` per item
-    /// di dalam `ForEach` — hindari O(n) fetch saat render (temuan reviewer #2).
+    /// Cache nama produk sekali (dict dari @Query `allProducts`), bukan `fetchById` per item
+    /// di dalam `ForEach` — hindari O(n) fetch saat render. Termasuk produk terhapus
+    /// (soft-deleted) supaya konsisten dengan struk (GenerateStrukUseCase gunakan fetchById
+    /// tanpa filter isDeleted).
     private func loadProductNames() {
-        let products = (try? ProductRepository(context: modelContext).fetchAll()) ?? []
-        productNames = Dictionary(uniqueKeysWithValues: products.map { ($0.id, $0.name) })
+        productNames = Dictionary(uniqueKeysWithValues: allProducts.map { ($0.id, $0.name) })
     }
 
     private func itemLabel(_ item: OrderItem) -> String {
