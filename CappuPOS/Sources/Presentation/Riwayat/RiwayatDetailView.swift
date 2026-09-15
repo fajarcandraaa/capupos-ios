@@ -10,6 +10,7 @@ public struct RiwayatDetailView: View {
     let order: Order
 
     @State private var showingStruk = false
+    @State private var productNames: [UUID: String] = [:]
 
     public var body: some View {
         VStack(spacing: 0) {
@@ -90,6 +91,9 @@ public struct RiwayatDetailView: View {
         .fullScreenCover(isPresented: $showingStruk) {
             StrukView(orderID: order.id)
         }
+        .task {
+            loadProductNames()
+        }
     }
 
     private var header: some View {
@@ -132,11 +136,17 @@ public struct RiwayatDetailView: View {
         .cornerRadius(6)
     }
 
+    /// Cache nama produk sekali (satu `fetchAll`), bukan `fetchById` per item
+    /// di dalam `ForEach` — hindari O(n) fetch saat render (temuan reviewer #2).
+    private func loadProductNames() {
+        let products = (try? ProductRepository(context: modelContext).fetchAll()) ?? []
+        productNames = Dictionary(uniqueKeysWithValues: products.map { ($0.id, $0.name) })
+    }
+
     private func itemLabel(_ item: OrderItem) -> String {
         if let deskripsi = item.deskripsi, !deskripsi.isEmpty { return deskripsi }
-        if let productID = item.productID,
-           let product = try? ProductRepository(context: modelContext).fetchById(id: productID) {
-            return product.name
+        if let productID = item.productID, let name = productNames[productID] {
+            return name
         }
         return "Item"
     }
