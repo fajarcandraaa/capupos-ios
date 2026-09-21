@@ -16,7 +16,8 @@ public final class FetchProfilUsahaUseCase {
 }
 
 /// Simpan perubahan profil usaha (FR-10.1): nama, logo, kategori, deskripsi,
-/// alamat, telepon. Validasi wajib (nama/alamat non-empty) di `StoreRepository`.
+/// alamat, telepon, email, no_hp. Validasi wajib (nama/alamat non-empty) di `StoreRepository`.
+/// TASK-011: email & no_hp additive (nullable).
 public final class SimpanProfilUsahaUseCase {
     private let storeRepository: StoreRepository
 
@@ -30,7 +31,9 @@ public final class SimpanProfilUsahaUseCase {
         kategoriUsaha: String?,
         deskripsi: String?,
         alamat: String,
-        telepon: String?
+        telepon: String?,
+        email: String?,
+        no_hp: String?
     ) throws -> Store {
         try storeRepository.update(
             nama: nama,
@@ -38,7 +41,9 @@ public final class SimpanProfilUsahaUseCase {
             kategoriUsaha: kategoriUsaha,
             deskripsi: deskripsi,
             alamat: alamat,
-            telepon: telepon
+            telepon: telepon,
+            email: email,
+            no_hp: no_hp
         )
     }
 }
