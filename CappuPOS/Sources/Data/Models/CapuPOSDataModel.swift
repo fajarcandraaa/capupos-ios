@@ -214,8 +214,9 @@ public final class OrderItem {
 // Singleton per outlet. Additive pengecualian forbidden_paths DECISIONS.md
 // [2026-09-14] poin 2 — untuk FR-10 (Profil Usaha) + FR-10.2 (header struk).
 
-/// Data usaha: profil toko (nama, logo, kategori, deskripsi, alamat, telepon).
+/// Data usaha: profil toko (nama, logo, kategori, deskripsi, alamat, telepon, email, no_hp).
 /// Single-outlet app — satu row saja, constraint dijaga di `StoreRepository.fetchOrCreate`.
+/// TASK-011: email & no_hp additive (nullable, SwiftData lightweight migration otomatis).
 @Model
 public final class Store {
     public var id: UUID
@@ -231,6 +232,10 @@ public final class Store {
     public var alamat: String
     /// Nomor telepon kontak, nullable.
     public var telepon: String?
+    /// Email usaha kontak, nullable (TASK-011: additive).
+    public var email: String?
+    /// Nomor HP kontak, nullable (TASK-011: additive).
+    public var no_hp: String?
 
     public init(
         id: UUID = UUID(),
@@ -239,7 +244,9 @@ public final class Store {
         kategoriUsaha: String? = nil,
         deskripsi: String? = nil,
         alamat: String = "",
-        telepon: String? = nil
+        telepon: String? = nil,
+        email: String? = nil,
+        no_hp: String? = nil
     ) {
         self.id = id
         self.nama = nama
@@ -248,5 +255,7 @@ public final class Store {
         self.deskripsi = deskripsi
         self.alamat = alamat
         self.telepon = telepon
+        self.email = email
+        self.no_hp = no_hp
     }
 }

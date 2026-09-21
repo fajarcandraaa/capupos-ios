@@ -21,6 +21,8 @@ public struct ProfilUsahaView: View {
     @State private var deskripsi = ""
     @State private var alamat = ""
     @State private var telepon = ""
+    @State private var email = ""
+    @State private var no_hp = ""
     @State private var logoImage: UIImage?
     @State private var logoSelection: PhotosPickerItem?
     @State private var alertMessage = ""
@@ -85,6 +87,18 @@ public struct ProfilUsahaView: View {
 
                 Section(header: Text("Telepon")) {
                     TextField("Telepon", text: $telepon)
+                }
+
+                Section(header: Text("Email")) {
+                    TextField("Email", text: $email)
+                        .keyboardType(.emailAddress)
+                        .textContentType(.emailAddress)
+                }
+
+                Section(header: Text("Nomor HP")) {
+                    TextField("Nomor HP", text: $no_hp)
+                        .keyboardType(.phonePad)
+                        .textContentType(.telephoneNumber)
                 }
 
                 Section(header: Text("Kategori Usaha")) {
@@ -158,6 +172,8 @@ public struct ProfilUsahaView: View {
                 deskripsi = store.deskripsi ?? ""
                 alamat = store.alamat
                 telepon = store.telepon ?? ""
+                email = store.email ?? ""
+                no_hp = store.no_hp ?? ""
                 if let path = store.logo, let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
                     logoImage = UIImage(data: data)
                 }
@@ -217,7 +233,9 @@ public struct ProfilUsahaView: View {
                 kategoriUsaha: kategoriUsaha.isEmpty ? nil : kategoriUsaha,
                 deskripsi: deskripsi.isEmpty ? nil : deskripsi,
                 alamat: alamat,
-                telepon: telepon.isEmpty ? nil : telepon
+                telepon: telepon.isEmpty ? nil : telepon,
+                email: email.isEmpty ? nil : email,
+                no_hp: no_hp.isEmpty ? nil : no_hp
             )
             // Bersihkan file logo lama (tidak di-gunakan lagi di Store).
             // Hanya saat simpan sukses — jangan hapus saat cancel/error.

@@ -26,13 +26,16 @@ public final class StoreRepository {
 
     /// Simpan perubahan profil usaha. `nama` wajib non-empty (FR-10.1); `alamat`
     /// wajib juga — dipakai di header struk (FR-10.2).
+    /// TASK-011: email & no_hp additive, keduanya nullable.
     public func update(
         nama: String,
         logo: String?,
         kategoriUsaha: String?,
         deskripsi: String?,
         alamat: String,
-        telepon: String?
+        telepon: String?,
+        email: String?,
+        no_hp: String?
     ) throws -> Store {
         let trimmedNama = nama.trimmingCharacters(in: .whitespacesAndNewlines)
         let trimmedAlamat = alamat.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -45,11 +48,21 @@ public final class StoreRepository {
         let store = try fetchOrCreate()
         store.nama = trimmedNama
         store.logo = logo
-        store.kategoriUsaha = kategoriUsaha?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true ? nil : kategoriUsaha?.trimmingCharacters(in: .whitespacesAndNewlines)
-        store.deskripsi = deskripsi?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true ? nil : deskripsi?.trimmingCharacters(in: .whitespacesAndNewlines)
+        store.kategoriUsaha = trimmedOrNil(kategoriUsaha)
+        store.deskripsi = trimmedOrNil(deskripsi)
         store.alamat = trimmedAlamat
-        store.telepon = telepon?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true ? nil : telepon?.trimmingCharacters(in: .whitespacesAndNewlines)
+        store.telepon = trimmedOrNil(telepon)
+        store.email = trimmedOrNil(email)
+        store.no_hp = trimmedOrNil(no_hp)
         try context.save()
         return store
+    }
+
+    /// Helper: trim whitespace, return nil bila kosong. Untuk nullable fields.
+    private func trimmedOrNil(_ value: String?) -> String? {
+        guard let trimmed = value?.trimmingCharacters(in: .whitespacesAndNewlines), !trimmed.isEmpty else {
+            return nil
+        }
+        return trimmed
     }
 }
