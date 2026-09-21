@@ -15,8 +15,9 @@ public struct ExportSheet {
 
 /// Export data ke .xlsx 3 sheet (FR-13.1): Transaksi, Produk, Laporan Ringkas.
 /// XLSX dirakit manual (OOXML + zip) — tanpa dependency eksternal
-/// (DECISIONS.md [2026-09-14] poin 4). Zip via NSFileCoordinator `.forUploading`
-/// trick: koordinasikan folder hasil jadi satu file zip.
+/// (DECISIONS.md [2026-09-14] poin 4). Zip ditulis manual (stdlib Foundation,
+/// method stored/uncompressed — file export kecil, hindari kompleksitas codec)
+/// dengan entry OOXML langsung di root arsip (sesuai spesifikasi OPC/OOXML).
 public final class ExportDataUseCase {
     private let orderRepository: OrderRepository
     private let productRepository: ProductRepository
@@ -187,33 +188,136 @@ public final class ExportDataUseCase {
             )
         }
 
-        // Zip folder -> satu file .xlsx via NSFileCoordinator .forUploading.
+        // Zip manual — entry OOXML di root arsip (tanpa prefix folder).
         let zipURL = root.deletingLastPathComponent()
             .appendingPathComponent("Laporan-CapuPOS-\(tanggalFilename()).xlsx")
-        var coordinatorError: NSError?
-        var zipError: Error?
-        let coordinator = NSFileCoordinator()
-        coordinator.coordinate(
-            readingItemAt: root, options: .forUploading,
-            writingItemAt: zipURL, options: [],
-            error: &coordinatorError
-        ) { srcURL, dstURL in
-            do {
-                let zippedTemp = srcURL.appendingPathExtension("zip")
-                _ = zippedTemp // .forUploading memberi srcURL sebagai zip virtual
-                let data = try Data(contentsOf: srcURL)
-                try data.write(to: dstURL)
-            } catch {
-                zipError = error
-            }
-        }
-        if let error = coordinatorError ?? zipError {
-            throw error
-        }
+        try writeZip(directory: root, to: zipURL)
 
         // Bersihkan folder sumber; hasil zip tetap.
         try? FileManager.default.removeItem(at: root)
         return zipURL
+    }
+
+    // MARK: - ZIP writer (OOXML-compliant: entry di root arsip)
+
+    /// Bungkus direktori ke .xlsx zip dengan entry relatif root (tanpa
+    /// folder prefix). Method stored/uncompressed + CRC32 pure Swift.
+    private func writeZip(directory: URL, to zipURL: URL) throws {
+        // Kumpulkan semua file (rekursif) dengan path relatif.
+        // Pakai standardizedFileURL: /var/folders/... di macOS/simulator adalah
+        // symlink ke /private/var/folders/... — enumerator me-resolve symlink,
+        // sedangkan `directory.path` mentah tidak, sehingga tanpa standardisasi
+        // dropFirst(basePath.count) salah hitung dan sisa prefix folder bocor.
+        // TANPA .skipsHiddenFiles: `_rels/.rels` (wajib OOXML) diawali titik —
+        // dianggap hidden file oleh FileManager, jangan sampai ke-skip.
+        var entries: [(path: String, data: Data)] = []
+        let fm = FileManager.default
+        let basePath = directory.standardizedFileURL.path
+        if let enumerator = fm.enumerator(at: directory, includingPropertiesForKeys: [.isRegularFileKey], options: []) {
+            for case let fileURL as URL in enumerator {
+                let isRegular = try? fileURL.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile
+                guard isRegular == true else { continue }
+                let data = try Data(contentsOf: fileURL)
+                let standardizedPath = fileURL.standardizedFileURL.path
+                let relPath = String(standardizedPath.dropFirst(basePath.count + 1))
+                entries.append((path: relPath, data: data))
+            }
+        }
+
+        // Tulis ZIP manual sesuai spec (local header + data, central dir, EOCD).
+        var output = Data()
+        var offsets: [UInt32] = []
+
+        // Local file headers + data (method 0 = stored, uncompressed — valid ZIP, simplify codec issues).
+        for (path, data) in entries {
+            let crc = crc32Checksum(data)
+            let localOffset = UInt32(output.count)
+            offsets.append(localOffset)
+
+            // Local file header (30 byte + filename).
+            output.append(UInt8(0x50)); output.append(UInt8(0x4B)); output.append(UInt8(0x03)); output.append(UInt8(0x04)) // PK\x03\x04
+            appendLE16(&output, 20) // version needed (2.0)
+            appendLE16(&output, 0) // flags
+            appendLE16(&output, 0) // method 0 = stored
+            appendLE16(&output, 0) // mod time (DOS)
+            appendLE16(&output, 0) // mod date (DOS)
+            appendLE32(&output, crc)
+            appendLE32(&output, UInt32(data.count)) // compressed = uncompressed
+            appendLE32(&output, UInt32(data.count))
+            appendLE16(&output, UInt16(path.utf8.count))
+            appendLE16(&output, 0) // extra field len
+            output.append(contentsOf: path.data(using: .utf8) ?? Data())
+
+            // Raw data (uncompressed).
+            output.append(data)
+        }
+
+        // Central directory.
+        let cdOffset = UInt32(output.count)
+        for (i, (path, data)) in entries.enumerated() {
+            let crc = crc32Checksum(data)
+
+            output.append(UInt8(0x50)); output.append(UInt8(0x4B)); output.append(UInt8(0x01)); output.append(UInt8(0x02)) // PK\x01\x02
+            appendLE16(&output, 20) // version made by
+            appendLE16(&output, 20) // version needed
+            appendLE16(&output, 0) // flags
+            appendLE16(&output, 0) // method 0 = stored
+            appendLE16(&output, 0) // mod time
+            appendLE16(&output, 0) // mod date
+            appendLE32(&output, crc)
+            appendLE32(&output, UInt32(data.count))
+            appendLE32(&output, UInt32(data.count))
+            appendLE16(&output, UInt16(path.utf8.count))
+            appendLE16(&output, 0) // extra field
+            appendLE16(&output, 0) // comment
+            appendLE16(&output, 0) // disk number start
+            appendLE16(&output, 0) // internal attributes
+            appendLE32(&output, 0) // external attributes
+            appendLE32(&output, offsets[i])
+            output.append(contentsOf: path.data(using: .utf8) ?? Data())
+        }
+
+        // End of Central Directory.
+        let cdSize = UInt32(output.count) - cdOffset
+        output.append(UInt8(0x50)); output.append(UInt8(0x4B)); output.append(UInt8(0x05)); output.append(UInt8(0x06)) // PK\x05\x06
+        appendLE16(&output, 0) // disk number
+        appendLE16(&output, 0) // disk with central dir
+        appendLE16(&output, UInt16(entries.count)) // entries this disk
+        appendLE16(&output, UInt16(entries.count)) // total entries
+        appendLE32(&output, cdSize)
+        appendLE32(&output, cdOffset)
+        appendLE16(&output, 0) // comment length
+
+        try output.write(to: zipURL)
+    }
+
+    /// Append 16-bit little-endian value ke Data.
+    private func appendLE16(_ data: inout Data, _ value: UInt16) {
+        data.append(UInt8(value & 0xFF))
+        data.append(UInt8((value >> 8) & 0xFF))
+    }
+
+    /// Append 32-bit little-endian value ke Data.
+    private func appendLE32(_ data: inout Data, _ value: UInt32) {
+        data.append(UInt8(value & 0xFF))
+        data.append(UInt8((value >> 8) & 0xFF))
+        data.append(UInt8((value >> 16) & 0xFF))
+        data.append(UInt8((value >> 24) & 0xFF))
+    }
+
+    /// CRC32 (zlib poly 0xEDB88320), pure Swift — table-based.
+    private func crc32Checksum(_ data: Data) -> UInt32 {
+        let table: [UInt32] = (0..<256).map { i in
+            var c = UInt32(i)
+            for _ in 0..<8 { c = (c & 1) != 0 ? (0xEDB88320 ^ (c >> 1)) : (c >> 1) }
+            return c
+        }
+        var crc: UInt32 = 0xFFFFFFFF
+        for byte in data {
+            let idx = Int((crc ^ UInt32(byte)) & 0xFF)
+            crc = table[idx] ^ (crc >> 8)
+        }
+        return crc ^ 0xFFFFFFFF
     }
 
     private func tanggalFilename() -> String {
