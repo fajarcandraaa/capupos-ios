@@ -1,16 +1,36 @@
-# Swift Package Manager
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcworkspace/xcshareddata/UserInterfaceState.xcuserstate
+DerivedData/
 .build/
-.swiftpm/xcode/xcuserdata/
-*.xccheckout
-*.xcscmblueprint
+*.xcuserdatad/
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+
+# SourceKit index cache
+**/index/db/
+**/index/store/
 
 # Xcode build artifacts
 build/
-DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM/
+*.swiftmodule/
 
-# Xcode user state
-xcuserdata/
-*.xcuserstate
+# CocoaPods (if used)
+Pods/
+Podfile.lock
 
-# macOS
-.DS_Store
+# Local environment
+.env
+.env.local
